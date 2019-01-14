@@ -12,7 +12,9 @@ import {AuthService} from './services/auth/auth.service';
 export class AppComponent {
   title = 'mspr-cloud-project-app';
 
-  constructor(public dialog: MatDialog, public snackbar: MatSnackBar, private authService: AuthService) {
+  constructor(public dialog: MatDialog,
+              public snackbar: MatSnackBar,
+              private authService: AuthService) {
   }
 
   public openDialog() {

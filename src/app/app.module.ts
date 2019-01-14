@@ -21,6 +21,7 @@ import {DialogOverviewDialogComponent} from './dialog-overview-dialog/dialog-ove
     HomeComponent,
     DialogOverviewDialogComponent
   ],
+  entryComponents: [DialogOverviewDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -39,6 +40,6 @@ import {DialogOverviewDialogComponent} from './dialog-overview-dialog/dialog-ove
     AuthService,
     AuthGuardService,
   ],
-  bootstrap: [AppComponent, DialogOverviewDialogComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
