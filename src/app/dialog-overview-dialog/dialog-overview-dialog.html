@@ -1,0 +1,16 @@
+<div mat-dialog-content>
+  <p>Login</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="userConnexion.email">
+  </mat-form-field>
+</div>
+<div mat-dialog-content>
+  <p>Password</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="userConnexion.password">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="userConnexion" cdkFocusInitial>Ok</button>
+</div>

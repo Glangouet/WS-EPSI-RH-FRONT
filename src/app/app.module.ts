@@ -12,12 +12,14 @@ import {AuthService} from './services/auth/auth.service';
 import {AuthGuardService} from './services/auth/auth-guard.service';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import {DialogOverviewDialogComponent} from './dialog-overview-dialog/dialog-overview-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    DialogOverviewDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,6 @@ import { HomeComponent } from './home/home.component';
     AuthService,
     AuthGuardService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, DialogOverviewDialogComponent]
 })
 export class AppModule { }
