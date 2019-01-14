@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   webserviceapi_login_check: 'localhost',
-  we
 };
 
 /*
