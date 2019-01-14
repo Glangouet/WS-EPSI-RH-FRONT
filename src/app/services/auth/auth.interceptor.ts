@@ -7,7 +7,6 @@ import {
 } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/mergeMap';
 import {environment} from '../../../environments/environment';
 
 @Injectable()
