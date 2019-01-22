@@ -3,13 +3,13 @@ import {Component, Inject} from '@angular/core';
 import {UserConnexion} from '../models/user-connexion';
 
 @Component({
-  selector: 'app-dialog-overview-dialog',
-  templateUrl: 'dialog-overview-dialog.html',
+  selector: 'app-login-dialog',
+  templateUrl: 'login-dialog.html',
 })
-export class DialogOverviewDialogComponent {
+export class LoginDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<DialogOverviewDialogComponent>,
+    public dialogRef: MatDialogRef<LoginDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public userConnexion: UserConnexion) {}
 
   onNoClick(): void {

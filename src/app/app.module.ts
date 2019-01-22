@@ -11,15 +11,17 @@ import {TokenInterceptor} from './services/auth/auth.interceptor';
 import {AuthService} from './services/auth/auth.service';
 import {AuthGuardService} from './services/auth/auth-guard.service';
 import { HomeComponent } from './home/home.component';
-import {DialogOverviewDialogComponent} from './dialog-overview-dialog/dialog-overview-dialog.component';
+import {LoginDialogComponent} from './login-dialog/login-dialog.component';
+import {AddDialogComponent} from './add-dialog/add-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    DialogOverviewDialogComponent
+    LoginDialogComponent,
+    AddDialogComponent
   ],
-  entryComponents: [DialogOverviewDialogComponent],
+  entryComponents: [LoginDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

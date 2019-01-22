@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {MatDialog, MatSnackBar} from '@angular/material';
-import {DialogOverviewDialogComponent} from './dialog-overview-dialog/dialog-overview-dialog.component';
+import {LoginDialogComponent} from './login-dialog/login-dialog.component';
 import {UserConnexion} from './models/user-connexion';
 import {AuthService} from './services/auth/auth.service';
 
@@ -18,7 +18,7 @@ export class AppComponent {
   }
 
   public openDialog() {
-      const dialogRef = this.dialog.open(DialogOverviewDialogComponent, {
+      const dialogRef = this.dialog.open(LoginDialogComponent, {
         width: '250px',
         data: new UserConnexion()
       });
@@ -32,6 +32,7 @@ export class AppComponent {
           console.log(error);
         }
       );
+      // TODO
       console.log('The dialog was closed');
       this.snackbar.open('Hello man !', 'SUPER!');
     });
