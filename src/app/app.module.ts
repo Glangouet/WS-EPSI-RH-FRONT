@@ -10,14 +10,12 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {TokenInterceptor} from './services/auth/auth.interceptor';
 import {AuthService} from './services/auth/auth.service';
 import {AuthGuardService} from './services/auth/auth-guard.service';
-import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import {DialogOverviewDialogComponent} from './dialog-overview-dialog/dialog-overview-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     HomeComponent,
     DialogOverviewDialogComponent
   ],
