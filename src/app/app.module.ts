@@ -12,14 +12,14 @@ import {AuthService} from './services/auth/auth.service';
 import {AuthGuardService} from './services/auth/auth-guard.service';
 import { HomeComponent } from './home/home.component';
 import {LoginDialogComponent} from './login-dialog/login-dialog.component';
-import {AddDialogComponent} from './add-dialog/add-dialog.component';
+import {ScoreDialogComponent} from './score-dialog/score-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginDialogComponent,
-    AddDialogComponent
+    ScoreDialogComponent
   ],
   entryComponents: [LoginDialogComponent],
   imports: [

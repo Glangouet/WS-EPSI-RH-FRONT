@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {MatchInfo} from '../models/match-info';
-import {LoginDialogComponent} from '../login-dialog/login-dialog.component';
-import {UserConnexion} from '../models/user-connexion';
-import {AddCommand} from '@angular/cli/commands/add-impl';
-import {AddDialogComponent} from '../add-dialog/add-dialog.component';
+import {ScoreDialogComponent} from '../score-dialog/score-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -15,13 +12,12 @@ import {AddDialogComponent} from '../add-dialog/add-dialog.component';
 
 export class HomeComponent implements OnInit {
   public matchs: MatchInfo[] = new Array<MatchInfo>();
-  // TODO if droit
-  displayedColumns: string[] = ['select', 'position', 'niveauCompet', 'equipe1', 'equipe2', 'score', 'tempsJeu'];
+  displayedColumns: string[] = ['select', 'position', 'niveauCompet', 'equipe1', 'score1', 'equipe2', 'score2', 'tempsJeu'];
   dataSource = new MatTableDataSource<MatchInfo>(this.matchs);
   selection = new SelectionModel<MatchInfo>(true, []);
 
   constructor(public dialog: MatDialog) {
-    this.matchs.push(new MatchInfo('Demi Finale', 'PSG', 'OM', '2-0', 77));
+    this.matchs.push(new MatchInfo('Demi Finale', 'PSG', '2', 'OM', '0', 77));
   }
 
   ngOnInit() { }
@@ -42,7 +38,9 @@ export class HomeComponent implements OnInit {
 
   addRow() {
     this.dataSource.data.push(
-       new MatchInfo('Demi Finale', 'PSG', 'OM', '2-0', 77));
+       new MatchInfo('Demi Finale', 'PSG', '2', 'OM', '0', 77)
+
+    );
     this.dataSource.data = this.dataSource.data.slice();
   }
 
@@ -61,5 +59,19 @@ export class HomeComponent implements OnInit {
     // TODO if droit
     const isDisable = null;
     return isDisable ;
+  }
+
+    public openDialog() {
+    const dialogRef = this.dialog.open(ScoreDialogComponent, {
+      width: '250px',
+     // data: new MatchInfo()
+    });
+
+    this.selection.selected.forEach(item => {
+      console.log(item);
+      // this.dataSource.data.splice(item.position - 1, 1);
+
+      this.dataSource = new MatTableDataSource<MatchInfo>(this.dataSource.data);
+    });
   }
 }
