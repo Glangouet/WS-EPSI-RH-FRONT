@@ -32,8 +32,7 @@ export class AppComponent {
           console.log(error);
         }
       );
-      // TODO
-      console.log('The dialog was closed');
+      // TODO connexion
       this.snackbar.open('Hello man !', 'SUPER!');
     });
   }

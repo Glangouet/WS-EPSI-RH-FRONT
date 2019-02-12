@@ -7,8 +7,8 @@
       <div class="row">
         <div class="col-sm-8"><h2>Matchs en cours</h2></div>
         <div class="col-sm-4">
-          <button mat-raised-button (click)="addRow()">Ajouter un Match</button>
-          <button mat-raised-button (click)="removeRow()">Supprimer un Match</button>
+          <button mat-raised-button [disabled]="isDisable()" (click)="addRow()">Ajouter un Match</button>
+          <button mat-raised-button [disabled]="isDisable()" (click)="removeRow()">Supprimer un Match</button>
         </div>
       </div>
     </div>

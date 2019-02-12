@@ -15,6 +15,7 @@ import {AddDialogComponent} from '../add-dialog/add-dialog.component';
 
 export class HomeComponent implements OnInit {
   public matchs: MatchInfo[] = new Array<MatchInfo>();
+  // TODO if droit
   displayedColumns: string[] = ['select', 'position', 'niveauCompet', 'equipe1', 'equipe2', 'score', 'tempsJeu'];
   dataSource = new MatTableDataSource<MatchInfo>(this.matchs);
   selection = new SelectionModel<MatchInfo>(true, []);
@@ -41,7 +42,7 @@ export class HomeComponent implements OnInit {
 
   addRow() {
     this.dataSource.data.push(
-      new MatchInfo('Demi Finale', 'PSG', 'OM', '2-0', 77));
+       new MatchInfo('Demi Finale', 'PSG', 'OM', '2-0', 77));
     this.dataSource.data = this.dataSource.data.slice();
   }
 
@@ -54,5 +55,11 @@ export class HomeComponent implements OnInit {
     });
     this.selection = new SelectionModel<MatchInfo>(true, []);
     console.log(this.dataSource.data);
+  }
+
+  isDisable() {
+    // TODO if droit
+    const isDisable = null;
+    return isDisable ;
   }
 }
