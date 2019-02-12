@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {MatchInfo} from '../models/match-info';
-import {ScoreDialogComponent} from '../score-dialog/score-dialog.component';
+import {AddMatchDialogComponent} from '../addMatch-dialog/addMatch-dialog.component';
+import {MatchService} from '../services/match/match.service';
 
 @Component({
   selector: 'app-home',
@@ -11,13 +12,11 @@ import {ScoreDialogComponent} from '../score-dialog/score-dialog.component';
 })
 
 export class HomeComponent implements OnInit {
-  public matchs: MatchInfo[] = new Array<MatchInfo>();
   displayedColumns: string[] = ['select', 'position', 'niveauCompet', 'equipe1', 'score1', 'equipe2', 'score2', 'tempsJeu'];
-  dataSource = new MatTableDataSource<MatchInfo>(this.matchs);
   selection = new SelectionModel<MatchInfo>(true, []);
 
-  constructor(public dialog: MatDialog) {
-    this.matchs.push(new MatchInfo('Demi Finale', 'PSG', '2', 'OM', '0', 77));
+  constructor(public dialog: MatDialog, public matchService: MatchService) {
+    matchService.matchs.push(new MatchInfo('Demi Finale', 'PSG', '2', 'OM', '0', 77));
   }
 
   ngOnInit() { }
@@ -25,7 +24,7 @@ export class HomeComponent implements OnInit {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.matchService.dataSource.data.length;
     return numSelected === numRows;
   }
 
@@ -33,26 +32,23 @@ export class HomeComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
+      this.matchService.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  addRow() {
-    this.dataSource.data.push(
-       new MatchInfo('Demi Finale', 'PSG', '2', 'OM', '0', 77)
-
-    );
-    this.dataSource.data = this.dataSource.data.slice();
+  addMatch() {
+    const matchInfo = new MatchInfo();
+    this.openCreateMatchDialog(matchInfo);
   }
 
-  removeRow() {
+  removeMatch() {
     this.selection.selected.forEach(item => {
       console.log(item);
-      this.dataSource.data.splice(item.position - 1, 1);
+      this.matchService.dataSource.data.splice(item.position - 1, 1);
 
-      this.dataSource = new MatTableDataSource<MatchInfo>(this.dataSource.data);
+      this.matchService.dataSource = new MatTableDataSource<MatchInfo>(this.matchService.dataSource.data);
     });
     this.selection = new SelectionModel<MatchInfo>(true, []);
-    console.log(this.dataSource.data);
+    console.log(this.matchService.dataSource.data);
   }
 
   isDisable() {
@@ -61,10 +57,10 @@ export class HomeComponent implements OnInit {
     return isDisable ;
   }
 
-    public openDialog() {
-    const dialogRef = this.dialog.open(ScoreDialogComponent, {
-      width: '250px',
-    });
-
+    public openCreateMatchDialog(matchInfo: MatchInfo) {
+      const dialogRef = this.dialog.open(AddMatchDialogComponent, {
+        width: '250px',
+        data: matchInfo
+      });
   }
 }

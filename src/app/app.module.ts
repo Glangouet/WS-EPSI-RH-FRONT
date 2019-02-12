@@ -12,16 +12,17 @@ import {AuthService} from './services/auth/auth.service';
 import {AuthGuardService} from './services/auth/auth-guard.service';
 import { HomeComponent } from './home/home.component';
 import {LoginDialogComponent} from './login-dialog/login-dialog.component';
-import {ScoreDialogComponent} from './score-dialog/score-dialog.component';
+import {AddMatchDialogComponent} from './addMatch-dialog/addMatch-dialog.component';
+import {MatchService} from './services/match/match.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginDialogComponent,
-    ScoreDialogComponent
+    AddMatchDialogComponent
   ],
-  entryComponents: [LoginDialogComponent],
+  entryComponents: [LoginDialogComponent, AddMatchDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -39,6 +40,7 @@ import {ScoreDialogComponent} from './score-dialog/score-dialog.component';
     },
     AuthService,
     AuthGuardService,
+    MatchService
   ],
   bootstrap: [AppComponent]
 })

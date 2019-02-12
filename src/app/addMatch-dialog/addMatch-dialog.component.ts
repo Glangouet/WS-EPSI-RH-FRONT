@@ -2,25 +2,23 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Component, Inject} from '@angular/core';
 import {UserConnexion} from '../models/user-connexion';
 import {MatchInfo} from '../models/match-info';
+import {MatchService} from '../services/match/match.service';
 
 
 @Component({
   selector: 'app-score-dialog',
-  templateUrl: 'score-dialog.html',
+  templateUrl: 'addMatch-dialog.html',
 })
-export class ScoreDialogComponent {
+export class AddMatchDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<ScoreDialogComponent>,
+    public matchService: MatchService,
+    public dialogRef: MatDialogRef<AddMatchDialogComponent>,
   @Inject(MAT_DIALOG_DATA) public matchInfo: MatchInfo
   ) {}
 
-  addPointE1(): void {
-    this.matchInfo.score1 = this.matchInfo.score1 + 1;
-  }
 
-  addPointE2(): void {
-    this.matchInfo.score2 = this.matchInfo.score2 + 1;
+  onNoClick(): void {
+    this.dialogRef.close();
   }
-
 }

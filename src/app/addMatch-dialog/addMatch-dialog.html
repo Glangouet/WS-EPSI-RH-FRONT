@@ -1,0 +1,40 @@
+<div mat-dialog-content>
+  <p>Niveau de Compétition</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="matchInfo.niveauCompet">
+  </mat-form-field>
+</div>
+<div mat-dialog-content>
+  <p>Equipe</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="matchInfo.equipe1">
+  </mat-form-field>
+</div>
+<div mat-dialog-content>
+  <p>Score</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="matchInfo.score1">
+  </mat-form-field>
+</div>
+<div mat-dialog-content>
+  <p>Equipe</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="matchInfo.equipe2">
+  </mat-form-field>
+</div>
+<div mat-dialog-content>
+  <p>Score</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="matchInfo.score2">
+  </mat-form-field>
+</div>
+<div mat-dialog-content>
+  <p>Temps de Jeu</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="matchInfo.tempsJeu">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close] (click)="matchService.onClickAddMatch(matchInfo)" cdkFocusInitial>Ajouter</button>
+</div>
