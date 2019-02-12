@@ -64,14 +64,7 @@ export class HomeComponent implements OnInit {
     public openDialog() {
     const dialogRef = this.dialog.open(ScoreDialogComponent, {
       width: '250px',
-     // data: new MatchInfo()
     });
 
-    this.selection.selected.forEach(item => {
-      console.log(item);
-      // this.dataSource.data.splice(item.position - 1, 1);
-
-      this.dataSource = new MatTableDataSource<MatchInfo>(this.dataSource.data);
-    });
   }
 }

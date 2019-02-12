@@ -23,8 +23,4 @@ export class ScoreDialogComponent {
     this.matchInfo.score2 = this.matchInfo.score2 + 1;
   }
 
-  getScore() {
-   return this.matchInfo.score2;
-  }
-
 }
