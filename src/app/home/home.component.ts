@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   selection = new SelectionModel<MatchInfo>(true, []);
 
   constructor(public dialog: MatDialog, public matchService: MatchService) {
-    matchService.matchs.push(new MatchInfo('Demi Finale', 'PSG', '2', 'OM', '0', 77));
+    matchService.matchs.push(new MatchInfo('Demi Finale', 'PSG', 2, 'OM', 0, 77));
   }
 
   ngOnInit() { }
