@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material';
 import {MatchService} from '../services/match/match.service';
-import {MatchInfo} from '../models/match-info';
 import {Router} from '@angular/router';
 
 @Component({
@@ -31,5 +29,9 @@ export class ArbitrateComponent implements OnInit {
   }
   removePointEquip2() {
     this.matchService.matchSelected.score2 = this.matchService.matchSelected.score2 - 1;
+  }
+
+  validate() {
+    this.router.navigate(['/']);
   }
 }

@@ -5,19 +5,20 @@
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
-        <div class="col-sm-8" ><h4>Niveau compet</h4></div>
+        <div class="col-sm-8" ><h4>{{matchService.matchSelected.niveauCompet}}</h4></div>
         <div class="col-sm-10">
-          nom equipe 1 : score
+          {{matchService.matchSelected.equipe1}} : {{matchService.matchSelected.score1}}
           <br>
           <button mat-raised-button (click)="addPointEquip1()">Ajouter un Point</button>
           <button mat-raised-button (click)="removePointEquip1()">Enlever un Point</button>
         </div>
         <div class="col-sm-10">
-          nom equipe 2 : score
+          {{matchService.matchSelected.equipe2}} : {{matchService.matchSelected.score2}}
           <br>
           <button mat-raised-button (click)="addPointEquip2()">Ajouter un Point</button>
           <button mat-raised-button (click)="removePointEquip2()">Enlever un Point</button>
         </div>
+        <button mat-raised-button (click)="validate()">Valider</button>
       </div>
     </div>
   </div>

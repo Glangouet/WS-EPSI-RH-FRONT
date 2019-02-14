@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {MatchInfo} from '../models/match-info';
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   selection = new SelectionModel<MatchInfo>(true, []);
 
   constructor(public dialog: MatDialog, public matchService: MatchService, private router: Router) {
-    matchService.matchs.push(new MatchInfo('Demi Finale', 'PSG', 2, 'OM', 0, 77));
+   // matchService.matchs.push(new MatchInfo('Demi Finale', 'PSG', 2, 'OM', 0, 77));
   }
 
   ngOnInit() { }
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
   }
 
   removeMatch() {
-    this.selection.selected.forEach((item, i) => {
+    this.selection.selected.forEach((item) => {
       console.log(item);
       this.matchService.matchs.forEach((match, n) => {
         if (match === item) {
