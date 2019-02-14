@@ -1,7 +1,8 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {MatchService} from '../services/match/match.service';
 import {MatchInfo} from '../models/match-info';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-arbitrate',
@@ -10,19 +11,25 @@ import {MatchInfo} from '../models/match-info';
 })
 
 export class ArbitrateComponent implements OnInit {
-  constructor(public dialog: MatDialog, public matchInfo: MatchInfo) {
+
+  constructor(public matchService: MatchService, private router: Router) {}
+
+  ngOnInit() {
+    if (!this.matchService.matchSelected) {
+      this.router.navigate(['/']);
+    }
   }
-  ngOnInit() {  }
+
   addPointEquip1() {
-    this.matchInfo.score1 = this.matchInfo.score1 + 1;
+    this.matchService.matchSelected.score1 = this.matchService.matchSelected.score1 + 1;
   }
   removePointEquip1() {
-    this.matchInfo.score1 = this.matchInfo.score1 - 1;
+    this.matchService.matchSelected.score1 = this.matchService.matchSelected.score1 - 1;
   }
   addPointEquip2() {
-    this.matchInfo.score2 = this.matchInfo.score2 + 1;
+    this.matchService.matchSelected.score2 = this.matchService.matchSelected.score2 + 1;
   }
   removePointEquip2() {
-    this.matchInfo.score2 = this.matchInfo.score2 - 1;
+    this.matchService.matchSelected.score2 = this.matchService.matchSelected.score2 - 1;
   }
 }

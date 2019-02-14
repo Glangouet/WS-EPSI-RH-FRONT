@@ -1,5 +1,4 @@
 export class MatchInfo {
-  public position?: number;
   public niveauCompet?: string;
   public equipe1?: string;
   public score1?: number;

@@ -7,13 +7,14 @@ import {MatTableDataSource} from '@angular/material';
 })
 export class MatchService {
 
+  public matchSelected: MatchInfo;
   public matchs: MatchInfo[] = new Array<MatchInfo>();
   public dataSource = new MatTableDataSource<MatchInfo>(this.matchs);
 
   constructor() { }
 
   public onClickAddMatch(matchInfo: MatchInfo) {
-    this.dataSource.data.push(matchInfo);
-    this.dataSource.data = this.dataSource.data.slice();
+    this.matchs.push(matchInfo);
+    this.dataSource.data = this.matchs;
   }
 }

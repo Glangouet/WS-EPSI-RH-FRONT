@@ -14,13 +14,15 @@ import { HomeComponent } from './home/home.component';
 import {LoginDialogComponent} from './login-dialog/login-dialog.component';
 import {AddMatchDialogComponent} from './addMatch-dialog/addMatch-dialog.component';
 import {MatchService} from './services/match/match.service';
+import {ArbitrateComponent} from './arbitrate/arbitrate.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginDialogComponent,
-    AddMatchDialogComponent
+    AddMatchDialogComponent,
+    ArbitrateComponent
   ],
   entryComponents: [LoginDialogComponent, AddMatchDialogComponent],
   imports: [
