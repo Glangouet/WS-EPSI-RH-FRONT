@@ -64,7 +64,8 @@ export class HomeComponent implements OnInit {
       });
   }
 
- /* arbitrate() {
-    this.selection.selected.
-  }*/
+  arbitrate() {
+    const matchSelected = this.selection.selected.pop();
+    console.log(matchSelected);
+  }
 }
