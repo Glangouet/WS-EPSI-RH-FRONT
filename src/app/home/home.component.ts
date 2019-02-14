@@ -63,4 +63,8 @@ export class HomeComponent implements OnInit {
         data: matchInfo
       });
   }
+
+ /* arbitrate() {
+    this.selection.selected.
+  }*/
 }
