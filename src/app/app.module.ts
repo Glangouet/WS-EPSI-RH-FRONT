@@ -15,6 +15,7 @@ import {LoginDialogComponent} from './login-dialog/login-dialog.component';
 import {AddMatchDialogComponent} from './addMatch-dialog/addMatch-dialog.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import {MatchService} from './services/match/match.service';
+import {ArbitrateComponent} from './arbitrate/arbitrate.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:8095', options: {} };
 
@@ -23,7 +24,8 @@ const config: SocketIoConfig = { url: 'http://localhost:8095', options: {} };
     AppComponent,
     HomeComponent,
     LoginDialogComponent,
-    AddMatchDialogComponent
+    AddMatchDialogComponent,
+    ArbitrateComponent
   ],
   entryComponents: [LoginDialogComponent, AddMatchDialogComponent],
   imports: [

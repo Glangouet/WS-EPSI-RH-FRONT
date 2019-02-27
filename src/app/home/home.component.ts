@@ -1,9 +1,10 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {MatchInfo} from '../models/match-info';
 import {AddMatchDialogComponent} from '../addMatch-dialog/addMatch-dialog.component';
 import {MatchService} from '../services/match/match.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +16,8 @@ export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['select', 'position', 'niveauCompet', 'equipe1', 'score1', 'equipe2', 'score2', 'tempsJeu'];
   selection = new SelectionModel<MatchInfo>(true, []);
 
-  constructor(public dialog: MatDialog, public matchService: MatchService) {
-    matchService.matchs.push(new MatchInfo('Demi Finale', 'PSG', '2', 'OM', '0', 77));
+  constructor(public dialog: MatDialog, public matchService: MatchService, private router: Router) {
+   // matchService.matchs.push(new MatchInfo('Demi Finale', 'PSG', 2, 'OM', 0, 77));
   }
 
   ngOnInit() { }
@@ -41,14 +42,18 @@ export class HomeComponent implements OnInit {
   }
 
   removeMatch() {
-    this.selection.selected.forEach(item => {
+    this.selection.selected.forEach((item) => {
       console.log(item);
-      this.matchService.dataSource.data.splice(item.position - 1, 1);
-
-      this.matchService.dataSource = new MatTableDataSource<MatchInfo>(this.matchService.dataSource.data);
+      this.matchService.matchs.forEach((match, n) => {
+        if (match === item) {
+          console.log(match, item, n);
+          console.log('je passe ici');
+          this.matchService.matchs.splice(n, 1);
+        }
+      });
+      this.matchService.dataSource = new MatTableDataSource<MatchInfo>(this.matchService.matchs);
     });
     this.selection = new SelectionModel<MatchInfo>(true, []);
-    console.log(this.matchService.dataSource.data);
   }
 
   isDisable() {
@@ -64,7 +69,8 @@ export class HomeComponent implements OnInit {
       });
   }
 
- /* arbitrate() {
-    this.selection.selected.
-  }*/
+  arbitrate() {
+    this.matchService.matchSelected = this.selection.selected.pop();
+    this.router.navigate(['/arbitrate']);
+  }
 }
