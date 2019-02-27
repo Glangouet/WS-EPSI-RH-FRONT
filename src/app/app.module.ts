@@ -13,7 +13,10 @@ import {AuthGuardService} from './services/auth/auth-guard.service';
 import { HomeComponent } from './home/home.component';
 import {LoginDialogComponent} from './login-dialog/login-dialog.component';
 import {AddMatchDialogComponent} from './addMatch-dialog/addMatch-dialog.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import {MatchService} from './services/match/match.service';
+
+const config: SocketIoConfig = { url: 'http://localhost:8095', options: {} };
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import {MatchService} from './services/match/match.service';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     {
