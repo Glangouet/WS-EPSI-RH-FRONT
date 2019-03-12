@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {MatchInfo} from '../../models/match-info';
 import {MatTableDataSource} from '@angular/material';
-import {Socket} from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root'

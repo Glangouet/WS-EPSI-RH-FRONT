@@ -4,6 +4,7 @@ import {LoginDialogComponent} from './login-dialog/login-dialog.component';
 import {UserConnexion} from './models/user-connexion';
 import {AuthService} from './services/auth/auth.service';
 import {Socket} from 'ngx-socket-io';
+import {Match} from './models/match';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,6 @@ import {Socket} from 'ngx-socket-io';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'mspr-cloud-project-app';
 
   constructor(public dialog: MatDialog,
               public snackbar: MatSnackBar,
@@ -23,6 +23,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.socket.on('newScore', (obj: Object) => {
       console.log(obj);
+    });
+    this.socket.on('match_list', (matchList: Match[]) => {
+      console.log(matchList);
     });
   }
 
