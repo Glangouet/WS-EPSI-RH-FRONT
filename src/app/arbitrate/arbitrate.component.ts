@@ -31,12 +31,14 @@ export class ArbitrateComponent implements OnInit {
       this.matchService.matchSelected.team1_score = 1;
     }
     this.matchSocket.updateMatch(this.matchService.matchSelected);
+    this.matchSocket.newScore(this.matchService.matchSelected);
   }
   removePointEquip1() {
     if (this.matchService.matchSelected.team1_score) {
       this.matchService.matchSelected.team1_score--;
     }
     this.matchSocket.updateMatch(this.matchService.matchSelected);
+    this.matchSocket.newScore(this.matchService.matchSelected);
   }
 
   addPointEquip2() {
@@ -46,21 +48,25 @@ export class ArbitrateComponent implements OnInit {
       this.matchService.matchSelected.team2_score = 1;
     }
     this.matchSocket.updateMatch(this.matchService.matchSelected);
+    this.matchSocket.newScore(this.matchService.matchSelected);
   }
   removePointEquip2() {
     if (this.matchService.matchSelected.team2_score) {
       this.matchService.matchSelected.team2_score--;
     }
     this.matchSocket.updateMatch(this.matchService.matchSelected);
+    this.matchSocket.newScore(this.matchService.matchSelected);
   }
 
   startMatch() {
     this.matchService.matchSelected.state = 'En cours';
     this.matchSocket.updateMatch(this.matchService.matchSelected);
+    this.matchSocket.startMatch(this.matchService.matchSelected);
   }
 
   endMatch() {
     this.matchService.matchSelected.state = 'Terminé';
     this.matchSocket.updateMatch(this.matchService.matchSelected);
+    this.matchSocket.endMatch(this.matchService.matchSelected);
   }
 }

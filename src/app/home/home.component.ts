@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog, MatTableDataSource} from '@angular/material';
-import {MatchInfo} from '../models/match-info';
 import {AddMatchDialogComponent} from '../addMatch-dialog/addMatch-dialog.component';
 import {MatchService} from '../services/match/match.service';
 import {Router} from '@angular/router';
@@ -30,7 +29,6 @@ export class HomeComponent implements OnInit {
   selection = new SelectionModel<Match>(true, []);
 
   public newLogEventSubscriber: Subscription;
-  public newMatchSubscription: Subscription;
 
   constructor(public dialog: MatDialog,
               public matchService: MatchService,
@@ -39,12 +37,11 @@ export class HomeComponent implements OnInit {
     if (authService.isAdmin || authService.isArbitrate) {
       this.ableSelect();
     }
-   // matchService.matchs.push(new MatchInfo('Demi Finale', 'PSG', 2, 'OM', 0, 77));
   }
 
   ngOnInit() {
     this.newLogEventSubscriber = this.authService.$newLogEvent.subscribe((type: string) => {
-      if (type === 'login') {
+      if (type === 'login' && (!this.authService.isAdmin || !this.authService.isArbitrate)) {
         this.ableSelect();
       }
       if (type === 'logout') {

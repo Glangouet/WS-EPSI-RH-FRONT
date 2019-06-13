@@ -18,10 +18,6 @@ export class MatchService {
       this.updateDataSource();
       console.log(this.matchList);
     });
-    matchSocket.newMatchEvent$.subscribe(match => {
-      this.matchList.unshift(match);
-      this.updateDataSource();
-    });
   }
 
   public updateDataSource() {
