@@ -4,7 +4,6 @@ import {LoginDialogComponent} from './login-dialog/login-dialog.component';
 import {UserConnexion} from './models/user-connexion';
 import {AuthService} from './services/auth/auth.service';
 import {Socket} from 'ngx-socket-io';
-import {Match} from './models/match';
 
 @Component({
   selector: 'app-root',
@@ -21,12 +20,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.socket.on('newScore', (obj: Object) => {
-      console.log(obj);
-    });
-    this.socket.on('match_list', (matchList: Match[]) => {
-      console.log(matchList);
-    });
   }
 
   public openDialog() {
@@ -35,17 +28,21 @@ export class AppComponent implements OnInit {
         data: new UserConnexion()
       });
 
-    dialogRef.afterClosed().subscribe(userConnexion => {
-      console.log(userConnexion);
-      this.authService.loginApi(userConnexion).subscribe(
-        success => {
-          console.log(success);
-        }, error => {
-          console.log(error);
+    dialogRef.afterClosed().subscribe((userConnexion: UserConnexion) => {
+      if (userConnexion) {
+        console.log(userConnexion);
+        if (userConnexion.email === 'arbitre@soccer.fr') {
+          this.authService.isArbitrate = true;
+          this.authService.$newLogEvent.next('login');
+          this.snackbar.open('Bonjour monsieur l\'arbitre!', 'au top!');
+        } else if (userConnexion.email === 'admin@soccer.fr') {
+          this.authService.isAdmin = true;
+          this.authService.$newLogEvent.next('login');
+          this.snackbar.open('Bonjour monsieur l\'admin!', 'ouais je sais..');
+        } else {
+          this.snackbar.open('Identification failed!', 'Pas cool!!!');
         }
-      );
-      // TODO connexion
-      this.snackbar.open('Hello man !', 'SUPER!');
+      }
     });
   }
 }

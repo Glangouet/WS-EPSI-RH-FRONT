@@ -5,6 +5,9 @@ import {MatchInfo} from '../models/match-info';
 import {AddMatchDialogComponent} from '../addMatch-dialog/addMatch-dialog.component';
 import {MatchService} from '../services/match/match.service';
 import {Router} from '@angular/router';
+import {Match} from '../models/match';
+import {AuthService} from '../services/auth/auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -13,14 +16,50 @@ import {Router} from '@angular/router';
 })
 
 export class HomeComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'position', 'niveauCompet', 'equipe1', 'score1', 'equipe2', 'score2', 'tempsJeu'];
-  selection = new SelectionModel<MatchInfo>(true, []);
+  displayedColumns: string[] = [
+    'position',
+    'niveauCompet',
+    'equipe1',
+    'score1',
+    'equipe2',
+    'score2',
+    'startDate',
+    'startHour',
+    'state'
+  ];
+  selection = new SelectionModel<Match>(true, []);
 
-  constructor(public dialog: MatDialog, public matchService: MatchService, private router: Router) {
+  public newLogEventSubscriber: Subscription;
+  public newMatchSubscription: Subscription;
+
+  constructor(public dialog: MatDialog,
+              public matchService: MatchService,
+              private router: Router,
+              public authService: AuthService) {
+    if (authService.isAdmin || authService.isArbitrate) {
+      this.ableSelect();
+    }
    // matchService.matchs.push(new MatchInfo('Demi Finale', 'PSG', 2, 'OM', 0, 77));
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.newLogEventSubscriber = this.authService.$newLogEvent.subscribe((type: string) => {
+      if (type === 'login') {
+        this.ableSelect();
+      }
+      if (type === 'logout') {
+        this.disableSelect();
+      }
+    });
+  }
+
+  public ableSelect() {
+    this.displayedColumns.unshift('select');
+  }
+
+  public disableSelect() {
+    this.displayedColumns.splice(0, 1);
+  }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
@@ -37,23 +76,23 @@ export class HomeComponent implements OnInit {
   }
 
   addMatch() {
-    const matchInfo = new MatchInfo();
-    this.openCreateMatchDialog(matchInfo);
+    const match = new Match();
+    this.openCreateMatchDialog(match);
   }
 
   removeMatch() {
     this.selection.selected.forEach((item) => {
       console.log(item);
-      this.matchService.matchs.forEach((match, n) => {
+      this.matchService.matchList.forEach((match, n) => {
         if (match === item) {
           console.log(match, item, n);
           console.log('je passe ici');
-          this.matchService.matchs.splice(n, 1);
+          this.matchService.matchList.splice(n, 1);
         }
       });
-      this.matchService.dataSource = new MatTableDataSource<MatchInfo>(this.matchService.matchs);
+      this.matchService.dataSource = new MatTableDataSource<Match>(this.matchService.matchList);
     });
-    this.selection = new SelectionModel<MatchInfo>(true, []);
+    this.selection = new SelectionModel<Match>(true, []);
   }
 
   isDisable() {
@@ -62,11 +101,18 @@ export class HomeComponent implements OnInit {
     return isDisable ;
   }
 
-    public openCreateMatchDialog(matchInfo: MatchInfo) {
+  public openCreateMatchDialog(match: Match) {
       const dialogRef = this.dialog.open(AddMatchDialogComponent, {
         width: '250px',
-        data: matchInfo
+        data: match
       });
+
+    dialogRef.afterClosed().subscribe((m: Match) => {
+      if (m) {
+        console.log(m);
+
+      }
+    });
   }
 
   arbitrate() {

@@ -5,20 +5,45 @@
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
-        <div class="col-sm-8" ><h4>{{matchService.matchSelected.niveauCompet}}</h4></div>
-        <div class="col-sm-10">
-          {{matchService.matchSelected.equipe1}} : {{matchService.matchSelected.score1}}
+        <div class="col-sm-6"><h4 class="mt-3">{{matchService.matchSelected.label}}</h4><hr></div>
+        <div class="col-sm-6"><h3 class="mt-3">{{matchService.matchSelected.state}}</h3><hr></div>
+
+        <div class="col-sm-9">
+          <span style="font-size: 20px; font-weight: bold;">
+            {{matchService.matchSelected.team_first.label}}
+          </span>
+          :
+          <span style="font-size: 25px; font-weight: bold; color: green;">
+            {{matchService.matchSelected.team1_score ? matchService.matchSelected.team1_score : 0}}
+          </span>
           <br>
+          <hr>
           <button mat-raised-button (click)="addPointEquip1()">Ajouter un Point</button>
           <button mat-raised-button (click)="removePointEquip1()">Enlever un Point</button>
         </div>
-        <div class="col-sm-10">
-          {{matchService.matchSelected.equipe2}} : {{matchService.matchSelected.score2}}
-          <br>
+
+        <div class="col-sm-3" style="border-left: 1px solid brown;">
+          <button mat-raised-button (click)="startMatch()">Démarer le match</button>
+          <button mat-raised-button (click)="endMatch()">Stopper le match</button>
+        </div>
+
+        <span class="clearfix"></span>
+        <br />
+        <hr>
+        <div class="col-sm-9">
+          <span style="font-size: 20px; font-weight: bold;">
+            {{matchService.matchSelected.team_second.label}}
+          </span>
+          :
+          <span style="font-size: 25px; font-weight: bold; color: green;">
+            {{matchService.matchSelected.team2_score ? matchService.matchSelected.team2_score : 0}}
+          </span>
+          <br />
+          <hr>
           <button mat-raised-button (click)="addPointEquip2()">Ajouter un Point</button>
           <button mat-raised-button (click)="removePointEquip2()">Enlever un Point</button>
         </div>
-        <button mat-raised-button (click)="validate()">Valider</button>
+
       </div>
     </div>
   </div>

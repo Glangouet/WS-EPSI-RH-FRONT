@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {UserSession} from '../../models/user-session';
 import {UserConnexion} from '../../models/user-connexion';
 import {Router} from '@angular/router';
@@ -13,6 +13,9 @@ export class AuthService {
 
   public userSession: UserSession;
   public isConnected: boolean;
+  public isArbitrate: boolean;
+  public isAdmin: boolean;
+  public $newLogEvent: Subject<string> = new Subject();
 
   constructor
   (
@@ -63,7 +66,10 @@ export class AuthService {
     this.userSession = null;
     localStorage.removeItem('userSession');
     this.isConnected = false;
-    this.router.navigate(['/login']);
+    this.isArbitrate = false;
+    this.isAdmin = false;
+    // this.router.navigate(['/login']);
+    this.$newLogEvent.next('logout');
     this.snackBar.open('Logout successful!', 'Yes!', {duration: 3000});
   }
 

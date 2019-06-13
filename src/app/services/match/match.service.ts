@@ -1,20 +1,36 @@
 import { Injectable } from '@angular/core';
-import {MatchInfo} from '../../models/match-info';
 import {MatTableDataSource} from '@angular/material';
+import {Match} from '../../models/match';
+import {MatchSocketService} from '../sockets/match/match-socket.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MatchService {
 
-  public matchSelected: MatchInfo;
-  public matchs: MatchInfo[] = new Array<MatchInfo>();
-  public dataSource = new MatTableDataSource<MatchInfo>(this.matchs);
+  public matchList: Match[] = [];
+  public matchSelected: Match;
+  public dataSource = new MatTableDataSource<Match>(this.matchList);
 
-  constructor() {}
+  constructor(public matchSocket: MatchSocketService) {
+    matchSocket.matchListEvent$.subscribe(matchList => {
+      this.matchList = matchList;
+      this.updateDataSource();
+      console.log(this.matchList);
+    });
+    matchSocket.newMatchEvent$.subscribe(match => {
+      this.matchList.unshift(match);
+      this.updateDataSource();
+    });
+  }
 
-  public onClickAddMatch(matchInfo: MatchInfo) {
-    this.matchs.push(matchInfo);
-    this.dataSource.data = this.matchs;
+  public updateDataSource() {
+    this.dataSource = new MatTableDataSource<Match>(this.matchList);
+  }
+
+  public onClickAddMatch(match: Match) {
+    this.matchSocket.addMatch(match);
+   // this.matchs.push(matchInfo);
+   // this.dataSource.data = this.matchs;
   }
 }

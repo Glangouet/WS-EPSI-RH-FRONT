@@ -1,8 +1,7 @@
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Component, Inject} from '@angular/core';
-import {UserConnexion} from '../models/user-connexion';
-import {MatchInfo} from '../models/match-info';
 import {MatchService} from '../services/match/match.service';
+import {Match} from '../models/match';
 
 
 @Component({
@@ -14,7 +13,7 @@ export class AddMatchDialogComponent {
   constructor(
     public matchService: MatchService,
     public dialogRef: MatDialogRef<AddMatchDialogComponent>,
-  @Inject(MAT_DIALOG_DATA) public matchInfo: MatchInfo
+  @Inject(MAT_DIALOG_DATA) public match: Match
   ) {}
 
 

@@ -2,9 +2,15 @@
 
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>GESTION DE MATCH DE FOOT</span>
+    <img [routerLink]="['/']" src="../assets/championsleague_psg_20182019.png" style="cursor: pointer; max-height: 65px; margin:10px;">
+    <span style="cursor: pointer;" [routerLink]="['/']">Soccer match</span>
     <span class="example-spacer"></span>
-    <button class="example-icon" mat-raised-button (click)="openDialog()">Login</button>
+    <button class="example-icon mr-3" mat-raised-button (click)="openDialog()">Login</button>
+    <button *ngIf="authService.isArbitrate || authService.isAdmin"
+            class="example-icon"
+            mat-raised-button
+            (click)="authService.logout()"
+            color="primary">Logout</button>
   </mat-toolbar-row>
 </mat-toolbar>
 

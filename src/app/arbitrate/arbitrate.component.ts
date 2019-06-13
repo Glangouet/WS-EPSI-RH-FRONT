@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {MatchService} from '../services/match/match.service';
 import {Router} from '@angular/router';
+import {AuthService} from '../services/auth/auth.service';
+import {MatchSocketService} from '../services/sockets/match/match-socket.service';
 
 @Component({
   selector: 'app-arbitrate',
@@ -10,28 +12,55 @@ import {Router} from '@angular/router';
 
 export class ArbitrateComponent implements OnInit {
 
-  constructor(public matchService: MatchService, private router: Router) {}
-
-  ngOnInit() {
-    if (!this.matchService.matchSelected) {
+  constructor(public matchService: MatchService,
+              private router: Router,
+              public authService: AuthService,
+              public matchSocket: MatchSocketService) {
+    if (!this.matchService.matchSelected || !this.authService.isArbitrate) {
       this.router.navigate(['/']);
     }
   }
 
-  addPointEquip1() {
-    this.matchService.matchSelected.score1 = this.matchService.matchSelected.score1 + 1;
-  }
-  removePointEquip1() {
-    this.matchService.matchSelected.score1 = this.matchService.matchSelected.score1 - 1;
-  }
-  addPointEquip2() {
-    this.matchService.matchSelected.score2 = this.matchService.matchSelected.score2 + 1;
-  }
-  removePointEquip2() {
-    this.matchService.matchSelected.score2 = this.matchService.matchSelected.score2 - 1;
+  ngOnInit() {
   }
 
-  validate() {
-    this.router.navigate(['/']);
+  addPointEquip1() {
+    if (this.matchService.matchSelected.team1_score) {
+      this.matchService.matchSelected.team1_score++;
+    } else {
+      this.matchService.matchSelected.team1_score = 1;
+    }
+    this.matchSocket.updateMatch(this.matchService.matchSelected);
+  }
+  removePointEquip1() {
+    if (this.matchService.matchSelected.team1_score) {
+      this.matchService.matchSelected.team1_score--;
+    }
+    this.matchSocket.updateMatch(this.matchService.matchSelected);
+  }
+
+  addPointEquip2() {
+    if (this.matchService.matchSelected.team2_score) {
+      this.matchService.matchSelected.team2_score++;
+    } else {
+      this.matchService.matchSelected.team2_score = 1;
+    }
+    this.matchSocket.updateMatch(this.matchService.matchSelected);
+  }
+  removePointEquip2() {
+    if (this.matchService.matchSelected.team2_score) {
+      this.matchService.matchSelected.team2_score--;
+    }
+    this.matchSocket.updateMatch(this.matchService.matchSelected);
+  }
+
+  startMatch() {
+    this.matchService.matchSelected.state = 'En cours';
+    this.matchSocket.updateMatch(this.matchService.matchSelected);
+  }
+
+  endMatch() {
+    this.matchService.matchSelected.state = 'Terminé';
+    this.matchSocket.updateMatch(this.matchService.matchSelected);
   }
 }

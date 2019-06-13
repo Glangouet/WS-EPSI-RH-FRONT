@@ -16,6 +16,10 @@ import {AddMatchDialogComponent} from './addMatch-dialog/addMatch-dialog.compone
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import {MatchService} from './services/match/match.service';
 import {ArbitrateComponent} from './arbitrate/arbitrate.component';
+import {MatchSocketService} from './services/sockets/match/match-socket.service';
+import {UserSocketService} from './services/sockets/user/user-socket.service';
+import {CustomDatePipe} from './pipes/custom-date.pipe';
+import {CustomHourPipe} from './pipes/custom-hour.pipe';
 
 const config: SocketIoConfig = { url: 'http://localhost:8095', options: {} };
 
@@ -25,7 +29,9 @@ const config: SocketIoConfig = { url: 'http://localhost:8095', options: {} };
     HomeComponent,
     LoginDialogComponent,
     AddMatchDialogComponent,
-    ArbitrateComponent
+    ArbitrateComponent,
+    CustomDatePipe,
+    CustomHourPipe
   ],
   entryComponents: [LoginDialogComponent, AddMatchDialogComponent],
   imports: [
@@ -46,7 +52,9 @@ const config: SocketIoConfig = { url: 'http://localhost:8095', options: {} };
     },
     AuthService,
     AuthGuardService,
-    MatchService
+    MatchService,
+    MatchSocketService,
+    UserSocketService
   ],
   bootstrap: [AppComponent]
 })

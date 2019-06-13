@@ -5,18 +5,18 @@
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
-        <div class="col-sm-8"><h2>Matchs en cours</h2></div>
+        <div class="col-sm-8 mt-3"><h2>Matchs en cours</h2></div>
         <div class="col-sm-6">
-          <button mat-raised-button [disabled]="isDisable()" (click)="addMatch()">Ajouter un Match</button>
-          <button mat-raised-button [disabled]="isDisable()" (click)="removeMatch()">Supprimer un Match</button>
-          <button mat-raised-button [disabled]="isDisable()" (click)="arbitrate()">Gérer les Scores</button>
+          <button *ngIf="authService.isAdmin" mat-raised-button [disabled]="isDisable()" (click)="addMatch()">Ajouter un Match</button>
+          <button *ngIf="authService.isAdmin" mat-raised-button [disabled]="isDisable()" (click)="removeMatch()">Supprimer un Match</button>
+          <button *ngIf="authService.isArbitrate" mat-raised-button [disabled]="isDisable()" (click)="arbitrate()">Gérer les Scores du match selectionné</button>
         </div>
       </div>
     </div>
     <table mat-table [dataSource]="matchService.dataSource" class="mat-elevation-z8">
 
       <!-- Checkbox Column -->
-     <ng-container matColumnDef="select">
+     <ng-container *ngIf="authService.isAdmin ||authService.isArbitrate" matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
           <mat-checkbox (change)="$event ? masterToggle() : null"
                         [checked]="selection.hasValue() && isAllSelected()"
@@ -38,33 +38,44 @@
 
       <ng-container matColumnDef="niveauCompet">
         <th mat-header-cell *matHeaderCellDef> Niveau de Compétition </th>
-        <td mat-cell *matCellDef="let element">{{element.niveauCompet}}</td>
+        <td mat-cell *matCellDef="let element">{{element.label}}</td>
       </ng-container>
 
       <ng-container matColumnDef="equipe1">
         <th mat-header-cell *matHeaderCellDef> Equipe </th>
-        <td mat-cell *matCellDef="let element">{{element.equipe1}}</td>
+        <td mat-cell *matCellDef="let element">{{element.team_first.label}}</td>
       </ng-container>
 
       <ng-container matColumnDef="score1">
         <th mat-header-cell *matHeaderCellDef> Score </th>
-        <td mat-cell *matCellDef="let element">{{element.score1}}</td>
+        <td mat-cell *matCellDef="let element">{{ element.team1_score ? element.team1_score : 0}}</td>
       </ng-container>
 
       <ng-container matColumnDef="equipe2">
         <th mat-header-cell *matHeaderCellDef> Equipe </th>
-        <td mat-cell *matCellDef="let element">{{element.equipe2}}</td>
+        <td mat-cell *matCellDef="let element">{{element.team_second.label}}</td>
       </ng-container>
 
       <ng-container matColumnDef="score2">
         <th mat-header-cell *matHeaderCellDef> Score </th>
-        <td mat-cell *matCellDef="let element">{{element.score2}}</td>
+        <td mat-cell *matCellDef="let element">{{element.team2_score ? element.team2_score : 0}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="tempsJeu">
-        <th mat-header-cell *matHeaderCellDef> Temps de Jeu </th>
-        <td mat-cell *matCellDef="let element">{{element.tempsJeu}}</td>
+      <ng-container matColumnDef="startDate">
+        <th mat-header-cell *matHeaderCellDef> Date création </th>
+        <td mat-cell *matCellDef="let element">{{element.start_date|customDate}}</td>
       </ng-container>
+
+      <ng-container matColumnDef="startHour">
+        <th mat-header-cell *matHeaderCellDef> Heure début </th>
+        <td mat-cell *matCellDef="let element">{{element.start_date|customHour}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef> Statut </th>
+        <td mat-cell *matCellDef="let element">{{ element.state}}</td>
+      </ng-container>
+
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"
