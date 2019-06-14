@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
               public snackbar: MatSnackBar,
-              private authService: AuthService,
+              public authService: AuthService,
               private matchSocket: MatchSocketService,
               private socket: Socket) {
     this.socket.connect();

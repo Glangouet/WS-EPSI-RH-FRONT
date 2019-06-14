@@ -20,6 +20,7 @@ export class MatchSocketService {
 
   private initializeSockets() {
     this.socket.on('new_score', (match: Match) => {
+      console.log(match);
       this.newScoreEvent$.next(match);
     });
     this.socket.on('match_list', (matchList: Match[]) => {
