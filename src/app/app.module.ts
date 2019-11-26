@@ -20,6 +20,7 @@ import {MatchSocketService} from './services/sockets/match/match-socket.service'
 import {UserSocketService} from './services/sockets/user/user-socket.service';
 import {CustomDatePipe} from './pipes/custom-date.pipe';
 import {CustomHourPipe} from './pipes/custom-hour.pipe';
+import { DispatchComponent } from './dispatch/dispatch.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:8095', options: {} };
 
@@ -31,7 +32,8 @@ const config: SocketIoConfig = { url: 'http://localhost:8095', options: {} };
     AddMatchDialogComponent,
     ArbitrateComponent,
     CustomDatePipe,
-    CustomHourPipe
+    CustomHourPipe,
+    DispatchComponent
   ],
   entryComponents: [LoginDialogComponent, AddMatchDialogComponent],
   imports: [
